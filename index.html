@@ -300,32 +300,47 @@
 
         /* Responsive styles */
         @media (max-width: 768px) {
-            .container {
-                padding: 0 15px;
-            }
-
             .header-content {
-                flex-direction: column;
+                flex-direction: row;
+                justify-content: space-between;
                 align-items: center;
             }
 
-            .logo {
-                margin-bottom: 15px;
+            .menu-toggle {
+                display: block;
+                font-size: 1.5em;
+                color: var(--primary-color);
+                background: none;
+                border: none;
+                cursor: pointer;
+            }
+
+            nav {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: var(--bg-color);
+                transition: left 0.3s ease;
+            }
+
+            nav.active {
+                left: 0;
             }
 
             nav ul {
                 flex-direction: column;
                 align-items: center;
+                padding: 20px 0;
             }
 
             nav ul li {
-                margin: 10px 0;
+                margin: 15px 0;
             }
 
-            .hero {
-                height: auto;
-                min-height: 100vh;
-                padding: 50px 0;
+            .card {
+                width: 100%;
             }
 
             .title {
@@ -336,30 +351,21 @@
                 font-size: 1.2em;
             }
 
-            .cta-btn {
-                font-size: 1em;
-                padding: 12px 24px;
-            }
-
-            .section {
-                padding: 50px 0;
-            }
-
             .section-title {
                 font-size: 2em;
             }
 
-            .cards-container {
-                flex-direction: column;
+            .card-title {
+                font-size: 1.3em;
             }
 
-            .card {
-                width: 100%;
-                margin-bottom: 20px;
+            .card-description {
+                font-size: 0.9em;
             }
 
-            #appointment-form {
-                width: 100%;
+            .cta-btn {
+                font-size: 1em;
+                padding: 12px 24px;
             }
 
             .theme-toggle {
@@ -370,41 +376,8 @@
                 font-size: 20px;
             }
 
-            .cursor-outer,
-            .cursor-inner {
+            .cursor-outer, .cursor-inner {
                 display: none;
-            }
-        }
-
-        /* Additional responsive adjustments */
-        @media (max-width: 480px) {
-            .title {
-                font-size: 2em;
-            }
-
-            .subtitle {
-                font-size: 1em;
-            }
-
-            .cta-btn {
-                font-size: 0.9em;
-                padding: 10px 20px;
-            }
-
-            .section-title {
-                font-size: 1.8em;
-            }
-
-            .card-icon {
-                font-size: 36px;
-            }
-
-            .card-title {
-                font-size: 1.3em;
-            }
-
-            .card-description {
-                font-size: 0.9em;
             }
         }
 
@@ -418,7 +391,10 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">Dr. Anitha Reddy</div>
-                <nav>
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <nav id="mainNav">
                     <ul>
                         <li><a href="#home">Home</a></li>
                         <li><a href="#about">About</a></li>
@@ -784,6 +760,157 @@
             title.style.transition = 'all 0.5s ease';
             title.style.transform = 'rotateY(0deg) rotateX(0deg)';
         });
+
+         // Mobile menu toggle
+         const menuToggle = document.getElementById('menuToggle');
+        const mainNav = document.getElementById('mainNav');
+
+        menuToggle.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            menuToggle.querySelector('i').classList.toggle('fa-bars');
+            menuToggle.querySelector('i').classList.toggle('fa-times');
+        });
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    mainNav.classList.remove('active');
+                    menuToggle.querySelector('i').classList.add('fa-bars');
+                    menuToggle.querySelector('i').classList.remove('fa-times');
+                }
+            });
+        });
+
+        // Disable custom cursor on mobile devices
+        function handleCustomCursor() {
+            if (window.innerWidth <= 768) {
+                document.querySelector('.cursor-outer').style.display = 'none';
+                document.querySelector('.cursor-inner').style.display = 'none';
+            } else {
+                document.querySelector('.cursor-outer').style.display = 'block';
+                document.querySelector('.cursor-inner').style.display = 'block';
+            }
+        }
+
+        window.addEventListener('resize', handleCustomCursor);
+        handleCustomCursor();
+
+        // Adjust particle density for mobile devices
+        function adjustParticleDensity() {
+            const particleConfig = {
+                "particles": {
+                    "number": {
+                        "value": window.innerWidth <= 768 ? 40 : 80,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#ff69b4"
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        },
+                        "polygon": {
+                            "nb_sides": 5
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.5,
+                        "random": false,
+                        "anim": {
+                            "enable": false,
+                            "speed": 1,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 3,
+                        "random": true,
+                        "anim": {
+                            "enable": false,
+                            "speed": 40,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#ff69b4",
+                        "opacity": 0.4,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 6,
+                        "direction": "none",
+                        "random": false,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false,
+                        "attract": {
+                            "enable": false,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "repulse"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 400,
+                            "line_linked": {
+                                "opacity": 1
+                            }
+                        },
+                        "bubble": {
+                            "distance": 400,
+                            "size": 40,
+                            "duration": 2,
+                            "opacity": 8,
+                            "speed": 3
+                        },
+                        "repulse": {
+                            "distance": 200,
+                            "duration": 0.4
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": true
+            };
+            particlesJS('particles-js', particleConfig);
+        }
+
+        window.addEventListener('resize', adjustParticleDensity);
+        adjustParticleDensity();
+
+
+
     </script>
 </body>
 </html>
