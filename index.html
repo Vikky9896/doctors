@@ -26,17 +26,23 @@
             --card-bg: #4a5568;
         }
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
-            margin: 0;
-            padding: 0;
+            line-height: 1.6;
             overflow-x: hidden;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .container {
+            width: 90%;
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
@@ -55,7 +61,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
+            padding: 15px 0;
         }
 
         .logo {
@@ -67,7 +73,6 @@
         nav ul {
             display: flex;
             list-style-type: none;
-            padding: 0;
         }
 
         nav ul li {
@@ -92,6 +97,7 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            padding-top: 80px;
         }
 
         .hero-content {
@@ -128,7 +134,7 @@
         }
 
         .section {
-            padding: 100px 0;
+            padding: 80px 0;
         }
 
         .section-title {
@@ -250,41 +256,35 @@
             transform: rotate(180deg);
         }
 
-        /* Custom cursor styles */
-        .cursor-outer,
-        .cursor-inner {
-            position: fixed;
-            border-radius: 50%;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            transition: width 0.3s ease-in-out,
-                        height 0.3s ease-in-out,
-                        opacity 0.3s ease-in-out;
-        }
-
-        .cursor-outer {
-            width: 50px;
-            height: 50px;
-            border: 2px solid rgba(226, 74, 87, 0.5);
-            z-index: 12000;
-        }
-
-        .cursor-inner {
-            width: 8px;
-            height: 8px;
-            background-color: rgba(247, 8, 28, 0.8);
-            z-index: 12001;
-        }
-
-        .cursor-hover {
-            width: 100px;
-            height: 100px;
-            background-color: rgba(245, 10, 167, 0.1);
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
         }
 
         @media (max-width: 768px) {
-            .card {
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .menu-toggle {
+                display: block;
+                position: absolute;
+                top: 15px;
+                right: 20px;
+            }
+
+            nav {
+                display: none;
                 width: 100%;
+            }
+
+            nav.active {
+                display: block;
             }
 
             nav ul {
@@ -294,53 +294,11 @@
             nav ul li {
                 margin: 10px 0;
             }
-        }
 
-        
-
-        /* Responsive styles */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-            }
-
-            .menu-toggle {
-                display: block;
-                font-size: 1.5em;
-                color: var(--primary-color);
-                background: none;
-                border: none;
-                cursor: pointer;
-            }
-
-            nav {
-                position: fixed;
-                top: 80px;
-                left: -100%;
-                width: 100%;
-                height: calc(100vh - 80px);
-                background-color: var(--bg-color);
-                transition: left 0.3s ease;
-            }
-
-            nav.active {
-                left: 0;
-            }
-
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-                padding: 20px 0;
-            }
-
-            nav ul li {
-                margin: 15px 0;
-            }
-
-            .card {
-                width: 100%;
+            .hero {
+                height: auto;
+                min-height: 100vh;
+                padding-top: 100px;
             }
 
             .title {
@@ -353,6 +311,10 @@
 
             .section-title {
                 font-size: 2em;
+            }
+
+            .card {
+                width: 100%;
             }
 
             .card-title {
@@ -375,18 +337,10 @@
                 height: 40px;
                 font-size: 20px;
             }
-
-            .cursor-outer, .cursor-inner {
-                display: none;
-            }
         }
-
-    
     </style>
 </head>
 <body>
-    <div class="cursor-outer"></div>
-    <div class="cursor-inner"></div>
     <header>
         <div class="container">
             <div class="header-content">
@@ -481,29 +435,6 @@
         </div>
     </section>
 
-    <section id="contact" class="section">
-        <div class="container">
-            <h2 class="section-title">Contact Us</h2>
-            <div class="cards-container">
-                <div class="card">
-                    <div class="card-icon"><i class="fas fa-phone"></i></div>
-                    <h3 class="card-title">Phone</h3>
-                    <p class="card-description">+91-9876543210</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon"><i class="fas fa-envelope"></i></div>
-                    <h3 class="card-title">Email</h3>
-                    <p class="card-description">contact@dranithareddyclinic.com</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon"><i class="fas fa-map-marker-alt"></i></div>
-                    <h3 class="card-title">Address</h3>
-                    <p class="card-description">123 Health Street, Tirupati, Andhra Pradesh, India</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <footer>
         <p>&copy; 2024 Dr. Anitha Reddy Women's Health Clinic. All rights reserved.</p>
     </footer>
@@ -525,244 +456,8 @@
             icon.classList.toggle('fa-moon');
         });
 
-        // Custom cursor
-        const cursorOuter = document.querySelector('.cursor-outer');
-        const cursorInner = document.querySelector('.cursor-inner');
-
-        document.addEventListener('mousemove', e => {
-            gsap.to(cursorOuter, { duration: 0.3, x: e.clientX, y: e.clientY });
-            gsap.to(cursorInner, { duration: 0.1, x: e.clientX, y: e.clientY });
-        });
-
-        document.addEventListener('mousedown', () => {
-            gsap.to(cursorOuter, { duration: 0.3, scale: 0.8 });
-            gsap.to(cursorInner, { duration: 0.3, scale: 0.6 });
-        });
-
-        document.addEventListener('mouseup', () => {
-            gsap.to(cursorOuter, { duration: 0.3, scale: 1 });
-            gsap.to(cursorInner, { duration: 0.3, scale: 1 });
-        });
-
-        // Particle.js configuration
-        particlesJS('particles-js', {
-            "particles": {
-                "number": {
-                    "value": 80,
-                    "density": {
-                        "enable": true,
-                        "value_area": 800
-                    }
-                },
-                "color": {
-                    "value": "#ff69b4"
-                },
-                "shape": {
-                    "type": "circle",
-                    "stroke": {
-                        "width": 0,
-                        "color": "#000000"
-                    },
-                    "polygon": {
-                        "nb_sides": 5
-                    }
-                },
-                "opacity": {
-                    "value": 0.5,
-                    "random": false,
-                    "anim": {
-                        "enable": false,
-                        "speed": 1,
-                        "opacity_min": 0.1,
-                        "sync": false
-                    }
-                },
-                "size": {
-                    "value": 3,
-                    "random": true,
-                    "anim": {
-                        "enable": false,
-                        "speed": 40,
-                        "size_min": 0.1,
-                        "sync": false
-                    }
-                },
-                "line_linked": {
-                    "enable": true,
-                    "distance": 150,
-                    "color": "#ff69b4",
-                    "opacity": 0.4,
-                    "width": 1
-                },
-                "move": {
-                    "enable": true,
-                    "speed": 6,
-                    "direction": "none",
-                    "random": false,
-                    "straight": false,
-                    "out_mode": "out",
-                    "bounce": false,
-                    "attract": {
-                        "enable": false,
-                        "rotateX": 600,
-                        "rotateY": 1200
-                    }
-                }
-            },
-            "interactivity": {
-                "detect_on": "canvas",
-                "events": {
-                    "onhover": {
-                        "enable": true,
-                        "mode": "repulse"
-                    },
-                    "onclick": {
-                        "enable": true,
-                        "mode": "push"
-                    },
-                    "resize": true
-                },
-                "modes": {
-                    "grab": {
-                        "distance": 400,
-                        "line_linked": {
-                            "opacity": 1
-                        }
-                    },
-                    "bubble": {
-                        "distance": 400,
-                        "size": 40,
-                        "duration": 2,
-                        "opacity": 8,
-                        "speed": 3
-                    },
-                    "repulse": {
-                        "distance": 200,
-                        "duration": 0.4
-                    },
-                    "push": {
-                        "particles_nb": 4
-                    },
-                    "remove": {
-                        "particles_nb": 2
-                    }
-                }
-            },
-            "retina_detect": true
-        });
-
-        // Animated typing effect for the subtitle
-        const subtitleElement = document.querySelector('.subtitle');
-        const subtitleText = "Dedicated to Women's Health and Well-being";
-
-        function animateSubtitle() {
-            subtitleElement.innerHTML = ''; // Clear existing content
-            subtitleText.split('').forEach((char, index) => {
-                const span = document.createElement('span');
-                span.textContent = char;
-                span.style.animationDelay = `${index * 0.1}s`;
-                subtitleElement.appendChild(span);
-            });
-
-            gsap.to('.subtitle span', {
-                opacity: 1,
-                y: 0,
-                stagger: 0.1,
-                ease: "back.out(1.7)",
-                duration: 0.8
-            });
-        }
-
-        gsap.to(subtitleElement, { 
-            opacity: 1, 
-            duration: 1, 
-            onComplete: animateSubtitle 
-        });
-
-        // Hover animations for cards
-        gsap.utils.toArray('.card').forEach((card) => {
-            card.addEventListener('mouseenter', () => {
-                gsap.to(card, {
-                    scale: 1.05,
-                    duration: 0.3,
-                    ease: "power2.out"
-                });
-            });
-
-            card.addEventListener('mouseleave', () => {
-                gsap.to(card, {
-                    scale: 1,
-                    duration: 0.3,
-                    ease: "power2.out"
-                });
-            });
-        });
-
-        // Parallax effect for particles
-        window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY;
-            const particlesContainer = document.getElementById('particles-js');
-            particlesContainer.style.transform = `translateY(${scrollY * 0.5}px)`;
-        });
-
-        // Smooth scroll for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // Animate sections on scroll
-        gsap.registerPlugin(ScrollTrigger);
-
-        gsap.utils.toArray('.section').forEach((section, index) => {
-            gsap.from(section, {
-                opacity: 0,
-                y: 50,
-                duration: 1,
-                scrollTrigger: {
-                    trigger: section,
-                    start: "top 80%",
-                    end: "bottom 20%",
-                    toggleActions: "play none none reverse"
-                }
-            });
-        });
-
-        // Form submission handling
-        const appointmentForm = document.getElementById('appointment-form');
-        appointmentForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            // Here you would typically send the form data to a server
-            // For this example, we'll just show an alert
-            alert('Appointment request submitted! We will contact you soon to confirm.');
-            appointmentForm.reset();
-        });
-
-        // Hero section interactive animation
-        const hero = document.querySelector('.hero');
-        const title = document.querySelector('.title');
-
-        hero.addEventListener('mousemove', (e) => {
-            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-            title.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-        });
-
-        hero.addEventListener('mouseenter', () => {
-            title.style.transition = 'none';
-        });
-
-        hero.addEventListener('mouseleave', () => {
-            title.style.transition = 'all 0.5s ease';
-            title.style.transform = 'rotateY(0deg) rotateX(0deg)';
-        });
-
-         // Mobile menu toggle
-         const menuToggle = document.getElementById('menuToggle');
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
         const mainNav = document.getElementById('mainNav');
 
         menuToggle.addEventListener('click', () => {
@@ -782,23 +477,9 @@
             });
         });
 
-        // Disable custom cursor on mobile devices
-        function handleCustomCursor() {
-            if (window.innerWidth <= 768) {
-                document.querySelector('.cursor-outer').style.display = 'none';
-                document.querySelector('.cursor-inner').style.display = 'none';
-            } else {
-                document.querySelector('.cursor-outer').style.display = 'block';
-                document.querySelector('.cursor-inner').style.display = 'block';
-            }
-        }
-
-        window.addEventListener('resize', handleCustomCursor);
-        handleCustomCursor();
-
-        // Adjust particle density for mobile devices
-        function adjustParticleDensity() {
-            const particleConfig = {
+        // Particle.js configuration
+        function initParticles() {
+            particlesJS('particles-js', {
                 "particles": {
                     "number": {
                         "value": window.innerWidth <= 768 ? 40 : 80,
@@ -902,16 +583,81 @@
                     }
                 },
                 "retina_detect": true
-            };
-            particlesJS('particles-js', particleConfig);
+            });
         }
 
-        window.addEventListener('resize', adjustParticleDensity);
-        adjustParticleDensity();
+        // Initialize particles
+        initParticles();
 
+        // Reinitialize particles on window resize
+        window.addEventListener('resize', () => {
+            initParticles();
+        });
 
+        // Animated typing effect for the subtitle
+        const subtitleElement = document.querySelector('.subtitle');
+        const subtitleText = "Dedicated to Women's Health and Well-being";
 
+        function animateSubtitle() {
+            subtitleElement.innerHTML = ''; // Clear existing content
+            subtitleText.split('').forEach((char, index) => {
+                const span = document.createElement('span');
+                span.textContent = char;
+                span.style.animationDelay = `${index * 0.1}s`;
+                subtitleElement.appendChild(span);
+            });
+
+            gsap.to('.subtitle span', {
+                opacity: 1,
+                y: 0,
+                stagger: 0.1,
+                ease: "back.out(1.7)",
+                duration: 0.8
+            });
+        }
+
+        gsap.to(subtitleElement, { 
+            opacity: 1, 
+            duration: 1, 
+            onComplete: animateSubtitle 
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Animate sections on scroll
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.utils.toArray('.section').forEach((section, index) => {
+            gsap.from(section, {
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 80%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+
+        // Form submission handling
+        const appointmentForm = document.getElementById('appointment-form');
+        appointmentForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Here you would typically send the form data to a server
+            // For this example, we'll just show an alert
+            alert('Appointment request submitted! We will contact you soon to confirm.');
+            appointmentForm.reset();
+        });
     </script>
 </body>
 </html>
-
